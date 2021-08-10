@@ -1,5 +1,8 @@
 {
   "credentials": [
-    { "service": "google", "username": "Ben", "password": "123456789" }
+    { "service": "google", "username": "Ben", "password": "123456789" },
+    { "service": "face", "username": "Ben", "password": "123456789" },
+    { "service": "insta", "username": "Ben", "password": "123456789" },
+    { "service": "twitter", "username": "Ben", "password": "123456789" }
   ]
 }
