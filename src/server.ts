@@ -1,1 +1,5 @@
-console.log('Hello Server!');
+import { readCredentials } from './utils/credentials';
+
+(async () => {
+  console.log(await readCredentials());
+})();
