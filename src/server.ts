@@ -1,5 +1,3 @@
 import { readCredentials } from './utils/credentials';
 
-(async () => {
-  console.log(await readCredentials());
-})();
+console.log(readCredentials());
