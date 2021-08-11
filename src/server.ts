@@ -1,13 +1,26 @@
-import express, { response } from 'express';
-import { findCredential, readCredentials } from './utils/credentials';
+import express from 'express';
+import {
+  addCredential,
+  deleteCredential,
+  findCredential,
+  readCredentials,
+} from './utils/credentials';
 
 const app = express();
 const port = 3000;
 
-app.get('/api/credentials', async (_req, res) => {
+app.use(express.json());
+
+app.post('/api/credentials', async (request, response) => {
+  const credential = request.body;
+  await addCredential(credential);
+  response.status(200).send(credential);
+});
+
+app.get('/api/credentials', async (_request, response) => {
   try {
     const credentials = await readCredentials();
-    res.status(200).send(credentials);
+    response.status(200).send(credentials);
   } catch (error) {
     console.error(error);
     response.status(500).send(`Internal server error`);
@@ -25,8 +38,10 @@ app.get('/api/credentials/:service', async (request, response) => {
   }
 });
 
-app.get('/', (_req, res) => {
-  res.send('Hello World!');
+app.delete('/api/credentials/:service', async (request, response) => {
+  const { service } = request.params;
+  await deleteCredential(service);
+  response.status(200).send();
 });
 
 app.listen(port, () => {
