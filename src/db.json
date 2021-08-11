@@ -1,8 +1,39 @@
 {
   "credentials": [
-    { "service": "Google", "username": "Ben", "password": "123456789" },
-    { "service": "FaceBook", "username": "Ben", "password": "123456789" },
-    { "service": "Instagram", "username": "Ben", "password": "123456789" },
-    { "service": "Twitter", "username": "Ben", "password": "123456789" }
+    {
+      "service": "Google",
+      "username": "Ben",
+      "password": "123456789"
+    },
+    {
+      "service": "FaceBook",
+      "username": "Ben",
+      "password": "123456789"
+    },
+    {
+      "service": "Instagram",
+      "username": "Ben",
+      "password": "123456789"
+    },
+    {
+      "service": "Twitter",
+      "username": "Ben",
+      "password": "123456789"
+    },
+    {
+      "service": "Twitter",
+      "username": "Ben",
+      "password": "123456789"
+    },
+    {
+      "service": "Twitter",
+      "username": "Ben",
+      "password": "123456789"
+    },
+    {
+      "service": "Blub",
+      "username": "Marcel",
+      "password": "12345678"
+    }
   ]
 }
