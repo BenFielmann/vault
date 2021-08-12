@@ -1,12 +1,15 @@
-import CryptoJS from 'crypto-js';
 import { readFile, writeFile } from 'fs/promises';
 import { DB, Credential } from '../types';
+import { decryptCredential, encryptCredential } from './crypto';
 
 export async function readCredentials(): Promise<Credential[]> {
   const response = await readFile('src/db.json', 'utf-8');
   const db: DB = JSON.parse(response);
   const credentials: Credential[] = db.credentials;
-  return credentials;
+  const decryptedCredentials = credentials.map((credential) => {
+    return decryptCredential(credential);
+  });
+  return decryptedCredentials;
 }
 
 export const findCredential = async (service: string): Promise<Credential> => {
@@ -21,29 +24,13 @@ export const findCredential = async (service: string): Promise<Credential> => {
   return credential;
 };
 
-// partiallyEncryptedCredential = { everything in credential, encrypted password }
-// add partiallyEncryptedCredential to newCredentials in line below
-
 export async function addCredential(credential: Credential): Promise<void> {
   const response = await readFile('src/db.json', 'utf-8');
-  const encrypted = CryptoJS.TripleDES.encrypt(credential.password, 'Zippo');
-  credential.password = encrypted.toString();
   const db: DB = JSON.parse(response);
-  db.credentials = [...db.credentials, credential];
+  const newCredential = encryptCredential(credential);
+  db.credentials = [...db.credentials, newCredential];
   await overWriteDB(db);
 }
-
-/*export async function addCredential(credential: Credential): Promise<void> {
-  const credentials = await readCredentials();
-  const encrypted = CryptoJS.TripleDES.encrypt(credential.password, 'Zippo');
-  credential.password = encrypted.toString();
-  const newCredentials = [...credentials, credential];
-  const newDB: DB = {
-    credentials: newCredentials,
-    //const decrypted = CryptoJS.TripleDES.decrypt(encrypted, "Zippo");
-  };
-  await writeFile('src/db.json', JSON.stringify(newDB, null, 2));
-}*/
 
 export const deleteCredential = async (service: string): Promise<void> => {
   const credentials = await readCredentials();
