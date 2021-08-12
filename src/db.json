@@ -3,36 +3,16 @@
     {
       "service": "Google",
       "username": "Ben",
-      "password": "123456789"
+      "password": "12345678"
     },
     {
-      "service": "FaceBook",
+      "service": "Dummi",
       "username": "Ben",
-      "password": "123456789"
+      "password": "12345678"
     },
     {
-      "service": "Instagram",
+      "service": "Dummi",
       "username": "Ben",
-      "password": "123456789"
-    },
-    {
-      "service": "Twitter",
-      "username": "Ben",
-      "password": "123456789"
-    },
-    {
-      "service": "Twitter",
-      "username": "Ben",
-      "password": "123456789"
-    },
-    {
-      "service": "Twitter",
-      "username": "Ben",
-      "password": "123456789"
-    },
-    {
-      "service": "Blub",
-      "username": "Marcel",
       "password": "12345678"
     }
   ]
