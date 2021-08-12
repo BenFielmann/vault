@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { request } from 'express';
 import {
   addCredential,
   deleteCredential,
   findCredential,
   readCredentials,
+  updateCredential,
 } from './utils/credentials';
 
 const app = express();
@@ -36,6 +37,12 @@ app.get('/api/credentials/:service', async (request, response) => {
     console.error(error);
     response.status(404).send(`Could not find service:`);
   }
+});
+
+app.put('/api/credentials/:service', async (request, response) => {
+  const urlParameter = request.params.service;
+  await updateCredential(urlParameter, request.body);
+  response.status(200).send();
 });
 
 app.delete('/api/credentials/:service', async (request, response) => {
