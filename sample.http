@@ -11,18 +11,18 @@ Content-Type: application/json
 {
     "service": "Hamburg",
     "username": "Ben",
-    "password": "12345678",
+    "password": "123456789"
 }
 
 ### Delete single credential
 DELETE http://localhost:3000/api/credentials/Hamburg
 
 ### Replace existing credential
-PUT http://localhost:3000/api/credentials/Google
+PUT http://localhost:3000/api/credentials/Hamburg
 Content-Type: application/json
 
 {
-    "service": "Facebook",
+    "service": "Dummi",
     "username": "Ben",
     "password": "12345678"
 }
