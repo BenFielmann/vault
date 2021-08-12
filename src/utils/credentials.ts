@@ -36,11 +36,11 @@ export const updateCredential = async (
   const credentials: Credential[] = await readCredentials();
   const editedCredentials = credentials.map((credential) => {
     if (credential.service.toLowerCase() === service.toLowerCase()) {
-      credential.password = newCredential.password;
-      credential.username = newCredential.username;
+      credential = newCredential;
     }
     return credential;
   });
+
   const db = {
     credentials: editedCredentials,
   };
