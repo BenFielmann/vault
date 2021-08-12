@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/credentials
 
 ### Get single credential
-GET http://localhost:3000/api/credentials/Facebook
+GET http://localhost:3000/api/credentials/Hamburg
 
 ### Add single credential
 POST http://localhost:3000/api/credentials
