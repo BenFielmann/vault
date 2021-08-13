@@ -1,26 +1,29 @@
 import CryptoJS from 'crypto-js';
-import { Credential } from '../types';
+import type { Credential } from '../types';
 
-const masterKey = 'Zippo';
-
-export const encryptCredential = (credential: Credential): Credential => {
+export function encryptCredential(
+  credential: Credential,
+  key: string
+): Credential {
   const encryptedPassword = CryptoJS.TripleDES.encrypt(
     credential.password,
-    masterKey
+    key
   ).toString();
 
   const encryptedCredential = {
     ...credential,
     password: encryptedPassword,
   };
-
   return encryptedCredential;
-};
+}
 
-export const decryptCredential = (credential: Credential): Credential => {
+export function decryptCredential(
+  credential: Credential,
+  key: string
+): Credential {
   const decryptedPassword = CryptoJS.TripleDES.decrypt(
     credential.password,
-    masterKey
+    key
   ).toString(CryptoJS.enc.Utf8);
 
   const decryptedCredential = {
@@ -29,4 +32,4 @@ export const decryptCredential = (credential: Credential): Credential => {
   };
 
   return decryptedCredential;
-};
+}
