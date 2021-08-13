@@ -41,7 +41,7 @@ app.get('/api/credentials', async (_request, response) => {
     return;
   }
   try {
-    const credentials = await readCredentials(masterPassword);
+    const credentials = await readCredentials();
     response.status(200).send(credentials);
   } catch (error) {
     console.error(error);
@@ -79,7 +79,7 @@ app.put('/api/credentials/:service', async (request, response) => {
     return;
   }
   await updateCredential(urlParameter, masterPassword, request.body);
-  response.status(200).send();
+  response.status(200).send(request.body);
 });
 
 app.delete('/api/credentials/:service', async (request, response) => {
@@ -92,7 +92,7 @@ app.delete('/api/credentials/:service', async (request, response) => {
     response.status(401).send('Unauthorized request');
     return;
   }
-  await deleteCredential(service, masterPassword);
+  await deleteCredential(service);
   response.status(200).send();
 });
 
