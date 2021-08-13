@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
 import { DB, Credential } from '../types';
+import { decryptCredential, encryptCredential } from './crypto';
 
 export async function readCredentials(): Promise<Credential[]> {
   const response = await readFile('src/db.json', 'utf-8');
@@ -8,17 +9,34 @@ export async function readCredentials(): Promise<Credential[]> {
   return credentials;
 }
 
-export const findCredential = async (service: string): Promise<Credential> => {
+export const findCredential = async (
+  service: string,
+  key: string
+): Promise<Credential> => {
   const credentials = await readCredentials();
   const credential = credentials.find(
     (credential) => credential.service.toLowerCase() === service.toLowerCase()
   );
+
   if (!credential) {
     throw new Error(`No credential found for service: ${service}`);
   }
-
-  return credential;
+  const decryptedCredential = decryptCredential(credential, key);
+  return decryptedCredential;
 };
+
+export async function addCredential(
+  credential: Credential,
+  key: string
+): Promise<void> {
+  const credentials = await readCredentials();
+  const encryptedCredential = encryptCredential(credential, key);
+  const newCredentials = [...credentials, encryptedCredential];
+  const db: DB = {
+    credentials: newCredentials,
+  };
+  await overWriteDB(db);
+}
 
 export const deleteCredential = async (service: string): Promise<void> => {
   const credentials = await readCredentials();
@@ -31,32 +49,21 @@ export const deleteCredential = async (service: string): Promise<void> => {
 
 export const updateCredential = async (
   service: string,
+  key: string,
   newCredential: Credential
 ): Promise<void> => {
   const credentials: Credential[] = await readCredentials();
-  const editedCredentials = credentials.map((credential) => {
-    if (credential.service.toLowerCase() === service.toLowerCase()) {
-      credential = newCredential;
-    }
-    return credential;
-  });
+  const filteredCredentials = credentials.filter(
+    (credential) => credential.service !== service
+  );
+  const encryptedCredential = encryptCredential(newCredential, key);
+  const newCredentials = [...filteredCredentials, encryptedCredential];
 
   const db = {
-    credentials: editedCredentials,
+    credentials: newCredentials,
   };
   return await overWriteDB(db);
 };
-
-//get all credentials
-//modify by one
-//overwrite DB
-
-export async function addCredential(credential: Credential): Promise<void> {
-  const response = await readFile('src/db.json', 'utf-8');
-  const db: DB = JSON.parse(response);
-  db.credentials = [...db.credentials, credential];
-  await overWriteDB(db);
-}
 
 async function overWriteDB(db: DB): Promise<void> {
   const dbString = JSON.stringify(db, null, 2);
