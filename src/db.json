@@ -1,29 +1,19 @@
 {
   "credentials": [
     {
-      "service": "Hamburg",
+      "service": "Dummi",
       "username": "Ben",
-      "password": "U2FsdGVkX18ccw/lw8BPxpvhiksj0MLoeOiPIEQA548="
+      "password": ""
     },
     {
-      "service": "Hamburg",
+      "service": "Dummi",
       "username": "Ben",
-      "password": "U2FsdGVkX1+8XBV4/VbcP+5xYibCAawAunmzXx8SNRM="
+      "password": ""
     },
     {
-      "service": "Hamburg",
+      "service": "Dummi",
       "username": "Ben",
-      "password": "U2FsdGVkX1+xDVEZDyZXapJIgaPTPyDd+iVmN4OHWHk="
-    },
-    {
-      "service": "Hamburg",
-      "username": "Ben",
-      "password": "U2FsdGVkX19iCDOQOHreSK+5AR2Tz40Y75qcMrJcpM8="
-    },
-    {
-      "service": "Hamburg",
-      "username": "Ben",
-      "password": "U2FsdGVkX18K4MoC1vCJYoeOTfa+/8/f4Pema96u4T8="
+      "password": ""
     }
   ]
 }
