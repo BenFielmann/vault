@@ -1,11 +1,14 @@
 ### Get all credentials
 GET http://localhost:3000/api/credentials
+Authorization: {{$dotenv MASTERPASSWORD}}
 
 ### Get single credential
 GET http://localhost:3000/api/credentials/Hamburg
+Authorization: {{$dotenv MASTERPASSWORD}}
 
 ### Add single credential
 POST http://localhost:3000/api/credentials
+Authorization: {{$dotenv MASTERPASSWORD}}
 Content-Type: application/json
 
 {
@@ -16,9 +19,11 @@ Content-Type: application/json
 
 ### Delete single credential
 DELETE http://localhost:3000/api/credentials/Hamburg
+Authorization: {{$dotenv MASTERPASSWORD}}
 
 ### Replace existing credential
 PUT http://localhost:3000/api/credentials/Hamburg
+Authorization: {{$dotenv MASTERPASSWORD}}
 Content-Type: application/json
 
 {
