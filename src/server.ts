@@ -12,6 +12,12 @@ import {
 
 import { validateMasterpassword } from './utils/validation';
 
+import { connectDatabase } from './utils/database';
+
+if (!process.env.MONGODB_URL) {
+  throw new Error('No MONGODB_URL dotenv variable');
+}
+
 const app = express();
 const port = 3000;
 
@@ -31,7 +37,7 @@ app.post('/api/credentials', async (request, response) => {
   response.status(200).send(credential);
 });
 
-app.get('/api/credentials', async (_request, response) => {
+app.get('/api/credentials', async (request, response) => {
   const masterPassword = request.headers.authorization;
   if (!masterPassword) {
     response.status(400).send('Authorization header missing');
@@ -96,6 +102,8 @@ app.delete('/api/credentials/:service', async (request, response) => {
   response.status(200).send();
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+connectDatabase(process.env.MONGODB_URL).then(() => {
+  app.listen(port, () => {
+    console.log(`Server is listening on port ${port}! 🚀`);
+  });
 });
