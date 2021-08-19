@@ -1,13 +1,3 @@
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
 .container {
   background-color: #282c34;
   display: grid;
