@@ -4,7 +4,7 @@ import styles from './Dashboard.module.css';
 import logo from './logo.svg';
 
 export default function Dashboard(): JSX.Element {
-  const [credentials, setCredentials] = useState([]);
+  const [credentials, setCredentials] = useState<Credential[]>([]);
 
   useEffect(() => {
     async function fetchCredentials() {
