@@ -27,7 +27,7 @@ Authorization: {{$dotenv MASTERPASSWORD}}
 Content-Type: application/json
 
 {
-    "service": "Dummi",
-    "username": "Ben",
-    "password": "12345678"
+    "service": "Audible",
+    "username": "BenQ",
+    "password": "12340045678"
 }
