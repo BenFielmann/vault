@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Credential } from '../../../types';
+import CredentialCard from '../../components/CredentialCard/CredentialCard';
 import styles from './Dashboard.module.css';
 import logo from './logo.svg';
 
@@ -27,9 +28,9 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.headline}>Password Vault</h1>
+      <h1 className={styles.headline}>Chaapa'ai Tel'tak</h1>
       <img src={logo} className={styles['App-logo']} alt="logo" />
-      <Link to="/vault">Vault</Link>
+      <Link to="/vault">Mak</Link>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -37,22 +38,21 @@ export default function Dashboard(): JSX.Element {
         }}
       >
         <input
-          type="password"
+          type="text"
           value={masterPassword}
           onChange={(event) => setMasterPassword(event.target.value)}
           className={styles.inputField}
-          placeholder="Du Weischttttt"
+          placeholder="dfaeghijk"
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className={styles.logInButton}>
+          Submit
+        </button>
       </form>
       {credentials.length !== 0 &&
         credentials.map((credential) => (
-          <div>
-            <p>{credential.service}</p>
-            <p>{credential.username}</p>
-            <p>{credential.password}</p>
-          </div>
+          <CredentialCard credentialData={credential} />
         ))}
+      <Link to="/Add">Blah</Link>
     </main>
   );
 }
