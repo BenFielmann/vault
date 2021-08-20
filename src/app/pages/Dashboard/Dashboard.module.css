@@ -4,21 +4,49 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   height: 100vh;
+  background-image: url(../../../assets/background/atlantis.jpg);
 }
 
 .headline {
-  color: #61dafb;
+  color: #5d6d72;
   text-align: center;
 }
 
-.inputField {
+@font-face {
+  font-family: 'stargate-glyphs';
+  src: url('../../../assets/fonts/stargate-glyphs.eot')
+      format('embedded-opentype'),
+    url('../../../assets/fonts/stargate-glyphs.woff') format('woff'),
+    url('../../../assets/fonts/stargate-glyphs.ttf') format('truetype');
+}
+
+.inputField[type='text'] {
+  font-family: 'stargate-glyphs', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: rgb(151, 48, 48);
+  background-color: rgba(240, 255, 255, 0.685);
   font-size: 2rem;
-  color: #61dafb;
-  background-color: azure;
-  border: none;
+  border: soli #61dafb;
+  border-radius: 50px;
+
+  /* For safety - reset parent styles, that can break glyph codes */
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(255, 230, 0, 0.3);
+}
+.logInButton {
+  font-size: 2rem;
+  color: #0ecbff;
+  background-color: rgba(240, 255, 255, 0.685);
+  border: soli #61dafb;
+  border-radius: 50px;
 }
 
 /* _____________________Logo________________________ */
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
