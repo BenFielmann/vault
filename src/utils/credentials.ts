@@ -2,10 +2,13 @@ import { Credential } from '../types';
 import { decryptCredential, encryptCredential } from './crypto';
 import { getCredentialCollection } from './database';
 
-export async function readCredentials(): Promise<Credential[]> {
+export async function readCredentials(key: string): Promise<Credential[]> {
   const collection = getCredentialCollection();
   const credentials = await collection.find().toArray();
-  return credentials;
+  const decryptedCredentials = credentials.map((credential) =>
+    decryptCredential(credential, key)
+  );
+  return decryptedCredentials;
 }
 
 export const findCredential = async (

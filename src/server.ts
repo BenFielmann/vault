@@ -46,7 +46,7 @@ app.get('/api/credentials', async (request, response) => {
     return;
   }
   try {
-    const credentials = await readCredentials();
+    const credentials = await readCredentials(masterPassword);
     response.status(200).send(credentials);
   } catch (error) {
     console.error(error);
