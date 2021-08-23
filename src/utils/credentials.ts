@@ -1,25 +1,30 @@
+import type { ObjectId } from 'mongodb';
 import { Credential } from '../types';
 import { decryptCredential, encryptCredential } from './crypto';
 import { getCredentialCollection } from './database';
 
-export async function readCredentials(): Promise<Credential[]> {
+export async function readCredentials(key: string): Promise<Credential[]> {
   const collection = getCredentialCollection();
   const credentials = await collection.find().toArray();
-  return credentials;
+  const decryptedCredentials = credentials.map((credential) =>
+    decryptCredential(credential, key)
+  );
+  return decryptedCredentials;
 }
 
 export const findCredential = async (
   service: string,
   key: string
 ): Promise<Credential> => {
-  const collection = getCredentialCollection();
-  const credential = await collection.findOne({ service });
+  const credentialCollection = getCredentialCollection();
+  const encryptedCredential = await credentialCollection.findOne({ service });
 
-  if (!credential) {
-    throw new Error(`No credential found for service: ${service}`);
+  if (!encryptedCredential) {
+    throw new Error(`Unable to find service ${service}`);
   }
 
-  return decryptCredential(credential, key);
+  const credential = decryptCredential(encryptedCredential, key);
+  return credential;
 };
 
 export async function addCredential(
@@ -39,12 +44,17 @@ export const deleteCredential = async (service: string): Promise<void> => {
   collection.findOneAndDelete({ service });
 };
 
-export const updateCredential = async (
+export async function updateCredential(
   service: string,
-  key: string,
-  newCredential: Credential
-): Promise<void> => {
-  const encrptedCredential = encryptCredential(newCredential, key);
-  const collection = getCredentialCollection();
-  collection.findOneAndReplace({ service }, encrptedCredential);
-};
+  credential: Credential,
+  key: string
+): Promise<void> {
+  const credentialCollection = getCredentialCollection();
+
+  const encryptedCredential = encryptCredential(credential, key);
+
+  await credentialCollection.updateOne(
+    { service },
+    { $set: encryptedCredential }
+  );
+}
