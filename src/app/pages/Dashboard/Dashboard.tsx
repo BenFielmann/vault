@@ -68,7 +68,7 @@ export default function Dashboard(): JSX.Element {
             onDeleteClick={handleDeleteClick}
           />
         ))}
-      <Link to="/Add">Blah</Link>
+      <Link to="/Add">➕</Link>
     </main>
   );
 }
