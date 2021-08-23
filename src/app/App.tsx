@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Password from './pages/Password/Password';
 import AddPage from './pages/AddPage/Add';
 import Search from './pages/Search/Search';
 import Edit from './pages/Edit/Edit';
@@ -18,9 +17,6 @@ function App(): JSX.Element {
         </Route>
         <Route path="/credential/:service/edit">
           <Edit />
-        </Route>
-        <Route path="/password/:service">
-          <Password />
         </Route>
         <Route path="/">
           <Dashboard />
