@@ -19,6 +19,18 @@ export default function Dashboard(): JSX.Element {
     setCredentials(credentials);
   }
 
+  async function deleteCredential(service: string, masterPassword: string) {
+    await fetch(`/api/credentials/${service}`, {
+      method: 'DELETE',
+      headers: { Authorization: masterPassword },
+    });
+  }
+
+  async function handleDeleteClick(service: string) {
+    await deleteCredential(service, masterPassword);
+    await fetchCredentials();
+  }
+
   useEffect(() => {
     fetchCredentials();
     if (!masterPassword) {
@@ -50,7 +62,11 @@ export default function Dashboard(): JSX.Element {
       </form>
       {credentials.length !== 0 &&
         credentials.map((credential) => (
-          <CredentialCard credentialData={credential} />
+          <CredentialCard
+            key={credential._id}
+            credentialData={credential}
+            onDeleteClick={handleDeleteClick}
+          />
         ))}
       <Link to="/Add">Blah</Link>
     </main>

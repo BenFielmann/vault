@@ -4,16 +4,19 @@ import styles from './CredentialCard.module.css';
 
 type CredentialCardProps = {
   credentialData: Credential;
+  onDeleteClick: (service: string) => void;
 };
 
 export default function CredentialCard({
   credentialData,
+  onDeleteClick,
 }: CredentialCardProps): JSX.Element {
   return (
     <div className={styles.frame}>
-      <p className={styles.data}>{credentialData.service}</p>
-      <p className={styles.data}>{credentialData.username}</p>
-      <p className={styles.data}>{credentialData.password}</p>
+      <p>{credentialData.service}</p>
+      <p>{credentialData.username}</p>
+      <p>{credentialData.password}</p>
+      <button onClick={() => onDeleteClick(credentialData.service)}>❌</button>
     </div>
   );
 }
