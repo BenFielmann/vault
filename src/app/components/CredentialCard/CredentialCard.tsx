@@ -1,5 +1,5 @@
 import React from 'react';
-import { Credential } from '../../../types';
+import type { Credential } from '../../../types';
 import styles from './CredentialCard.module.css';
 
 type CredentialCardProps = {
